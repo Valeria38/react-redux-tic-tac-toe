@@ -1,19 +1,10 @@
 import React from 'react';
 import '../App.css';
 import Cell from './Cell';
-import Restart from './Restart';
-import Result from './Result';
-import CurrentTurn from './CurrentTurn';
-import { store, templateTurn } from '../store/store';
-
-store.subscribe(function() {
-  console.log(store.getState().turns);
-  // return 1;
-});
-
-// store.dispatch({
-//   type:'INITIAL'
-// });
+// import Restart from './Restart';
+// import Result from './Result';
+// import CurrentTurn from './CurrentTurn';
+import { connect } from 'react-redux';
 
 const winnerCombinations = [
   [0, 1, 2],
@@ -30,9 +21,8 @@ const winnerCombinations = [
 class Game extends React.Component {
 
   render() {
-    //массив с массивами
-    const turns = store.getState().turns;
-    const cells = turns[turns.length - 1] || templateTurn;
+    const cells = this.props.lastTurn;
+    console.log(this.props.lastTurn);
 
     return (
       <div>
@@ -42,25 +32,36 @@ class Game extends React.Component {
           <Cell 
             key={index}
             sign={cell}
-            markCell={() => {
-              store.dispatch({
-                type: 'ADD_TURN',
-                payload: {
-                  index: index,
-                  sign: 'X'
-                }
-              });
-              console.log(cells);
-            }}
+            fillCell={(index) => this.props.fillCell(index)}
           />)}
         </div>
         {/* <Result winner={winner} /> */}
         {/* <Restart restartGame={this.restartGame} /> */}
       </div>
     )
-    
-
   }
 }
 
-export default Game;
+const mapStateToProps = (state, props) => {
+  return {
+    firstTurn: state.turns[0],
+    turns: state.turns,
+    lastTurn: state.turns[state.turns.length - 1],
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fillCell: (index) => {
+      dispatch({
+        type: 'ADD_TURN',
+        payload: {
+          index: index,
+          sign: 'O'
+        }
+      })
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

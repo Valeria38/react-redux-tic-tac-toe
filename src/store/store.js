@@ -6,7 +6,7 @@ export const templateTurn = Array(9).fill(null);
 
 const initialState = {
   turns: [
-    ["X", null, null, null, null, null, null, null, null]
+    ["X", null, null, null, null, null, null, null, "X"]
   ],
   winner: null
 };
@@ -14,7 +14,8 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TURN:
-      const { index, sign } = action.payload;//5, "X"
+      const { index, sign } = action.payload;//0,1,2..., "O"
+      console.log(index, sign);//Class, "O"
 
       const lastTurn = state.turns.length
         ? state.turns[state.turns.length - 1]

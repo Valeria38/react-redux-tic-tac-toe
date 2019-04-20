@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Cell = ({ sign, markCell }) => {
+const Cell = ({ sign, markCell, fillCell }) => {
   return (
     <div 
     className="field__cell"
-    onClick={markCell}
+    onClick={fillCell}
     >
       {sign}
     </div>
