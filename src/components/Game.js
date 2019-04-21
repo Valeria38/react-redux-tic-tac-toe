@@ -22,8 +22,6 @@ class Game extends React.Component {
   render() {
     const { lastTurn, fillCell } = this.props;
     const cells = lastTurn;
-    console.log(this.props);
-
     return (
       <div>
         {/* <CurrentTurn turn={turn} winner={winner} /> */}
@@ -39,11 +37,11 @@ class Game extends React.Component {
   }
 }
 
-const mapStateToProps = ({ turns }) => {
+const mapStateToProps = ({ game }) => {
   return {
-    firstTurn: turns[0],
-    turns: turns,
-    lastTurn: turns[turns.length - 1],
+    firstTurn: game.turns[0],
+    turns: game.turns,
+    lastTurn: game.turns[game.turns.length - 1],
   };
 };
 
