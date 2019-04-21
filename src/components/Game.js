@@ -52,16 +52,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fillCell: (index) => {
-      dispatch({
-        type: 'ADD_TURN',
-        payload: {
-          index: index,
-          sign: 'O'
-        }
-      })
-    }
-  }
+    fillCell: (index) => dispatch({ type: 'ADD_TURN', payload: index }),
+  }    
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

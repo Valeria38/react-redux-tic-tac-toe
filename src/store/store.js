@@ -14,12 +14,14 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TURN:
-      const { index, sign } = action.payload;//0,1,2..., "O"
-      console.log(index, sign);//Class, "O"
+      const index = action.payload;
+      console.log(index);
 
       const lastTurn = state.turns.length
         ? state.turns[state.turns.length - 1]
         : [...templateTurn];
+
+      const sign = "S";
 
       const currentTurn = [...lastTurn];
       currentTurn[index] = sign;
